@@ -1,11 +1,9 @@
 ---
-LEAP: <to be assigned>
-title: <LEAP title>
+LEAP: 9
+title: Launch BTC Market
 status: Draft
-author: <a list of the author's or authors' name(s) and/or username(s), or name(s) and email(s), e.g. (use with the parentheses or triangular brackets): FirstName LastName (@GitHubUsername), FirstName LastName <foo@bar.com>, FirstName (@GitHubUsername) and GitHubUsername (@GitHubUsername)>
-
-created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
-requires (*optional): <LEAP number(s)>
+author: @nickf24
+created: 2021-10-27
 ---
 
 <!--You can leave these HTML comments in your merged LEAP and delete the visible duplicate text guides, they will not appear and may be helpful to refer to if you edit it again. This is the suggested template for new LEAPs. Note that a LEAP number will be assigned by an editor. When opening a pull request to submit your LEAP, please use an abbreviated title in the filename, `leap-draft_title_abbrev.md`. The title should be 44 characters or less.-->
