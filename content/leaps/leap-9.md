@@ -38,7 +38,6 @@ Lyra's ETH options markets have been live for 2 months, with LINK trading for th
 
 ### Technical Specification
 <!--The technical specification should outline the public API of the changes proposed. That is, changes to any of the interfaces Lyra currently exposes or the creations of new ones.-->
-1. Liquidity
 Liquidity rewards should be incentivized within the Ignition framework, equal to the ETH market rewards. The BTC rounds schedule should mirror existing Ignition plans for ETH and LINK markets (same expiries, same trading start date). 
 
 ### Test Cases
