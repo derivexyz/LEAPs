@@ -34,13 +34,15 @@ Community grants are a great way to reward contributors for providing meaningful
 ### Overview
 <!--This is a high level overview of *how* the LEAP will solve the problem. The overview should clearly describe how the new feature will be implemented.-->
 GrantsDAO will be governed by five members that are elected by token holder vote. GrantsDAO members are responsible for rewarding grants and allocating the GrantDAO funds.
-GrantsDAO consists of three DAO members and two Core Contributors.
+GrantsDAO will consist of three DAO members and two Core Contributors.
 
 
 ### Rationale
-Setting up a GrantsDAO is another step towards decentralized governance. This will enable LyraDAO to manage funds towards the betterment of the protocol and attract talent, skills and, culture to develop and sustain the growth of Lyra.
+Setting up a GrantsDAO is another step towards decentralized governance. This will enable LyraDAO to manage funds towards the betterment of the protocol and attract the talent, skills and, culture to develop and sustain the growth of Lyra.
 
 ### Technical Specification
+
+Build a smart contract + frontend that allows GrantsDAO members to vote on grant proposals for contributing to the Lyra Protocol or DAO.
 
 1. Grants
 
@@ -52,7 +54,7 @@ Setting up a GrantsDAO is another step towards decentralized governance. This wi
 	- Defining processes and templates for submitting a grant proposal
 	- Guiding applicants through the processes
 	- Interviewing applicants and evaluating proposals
-	- Voting on proposals and distributing the milestones outlined in the proposal
+	- Voting on proposals and distributing the funds outlined in the proposal
 
 2. Token Holder
 
@@ -71,17 +73,17 @@ Setting up a GrantsDAO is another step towards decentralized governance. This wi
 
 4. Election
 
-	The initial Grants DAO members will be appointed by the council to address the urgency and serve a five-month term. The five-month period ensures that the members are appointed for one whole epoch.
-	Hereafter, the grants DAO members are appointed by the Token holder voting and are selected for a three-month term.
+	The initial Grants DAO members will be appointed by the Lyra's council to address the urgency and serve a five-month term. The five-month period ensures that the members are appointed for one whole epoch.
+	Hereafter, the grants DAO members will be appointed by the Token holder voting and are selected for a three-month term.
 
 	The election process for The GrantsDAO will follow the same election rules as that of the LyraDAO Council election. see [LEAP-15](https://leaps.lyra.finance/leaps/leap-15/).
 
 5. Management of Funds
 	
-	Initially, grants approved by the GrantsDAO will be agreed on and funded by Lyra DAOs multisig.
-	Once the LyraDAO treasury is established, the monetary responsibilities of GrantsDAO include, but are not limited to:
+	Initially, grants approved by the GrantsDAO will be agreed on and funded by Lyra's DAO multisig.
+	Once the a Lyra treasury is established, the monetary responsibilities of GrantsDAO include, but are not limited to:
 	- Maintaining budget in a multisig contract
-	- Submitting a budget proposal to the LyraDAO each epoch to receive the required funding.
+	- Submitting a budget proposal to the Lyra Treasury each epoch to receive the required funding.
 
 6. Non-obligations
 
@@ -91,6 +93,7 @@ Setting up a GrantsDAO is another step towards decentralized governance. This wi
 
 ### Configurable Values
 <!--Please list all values configurable under this implementation.-->
+	Number of seats = 5
 
 ## Copyright
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
