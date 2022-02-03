@@ -42,6 +42,7 @@ Setting up a GrantsDAO is another step towards decentralized governance. This wi
 ### Technical Specification
 
 1. Grants
+
 A grant is a financial award given to a contributor/receiver who provides meaningful contributions to the DAO/Protocol. 
 	- Anyone can propose a grant.
 	- Accepting/Rejecting a grant requires a majority of GrantDAO member votes in favor (i.e., 3/5).
@@ -51,6 +52,7 @@ A grant is a financial award given to a contributor/receiver who provides meanin
 	 - Tokens that the Lyra DAO controls are NOT eligible to vote.
 
 3. GrantsDAO
+
 The Grants DAO will be a five-seat committee and will sit for three calendar months at a time. The responsibilities of Grants DAO include, but are not limited to:
 	- Being an active member in Discord and the broader Defi community
 	- Recognize contributions made by the community members and reward them accordingly.
@@ -58,12 +60,14 @@ The Grants DAO will be a five-seat committee and will sit for three calendar mon
 	- Vote to Pass or Deny grant proposals promptly
 
 4. Election
+
 The first Grants DAO members are elected by the council or an informal discord vote to address the urgency and are selected for a five-month term. The five-month period ensures that the members are appointed for one whole epoch.
 Hereafter, the grants DAO members are appointed by the Token vote and selected for a three-month term.
 
 The election process for The GrantsDAO will follow the same rules as that of the Lyra Council election (LEAP-15).
 
 5. Funding
+
 GrantsDAO proposes a LEAP to request a budget from the LyraDAO; the remaining balance at the end of the term is returned to the treasury.
 Grants DAO position is an incentivized role, and each member will receive $3000 worth of Lyra Tokens each month.
 
