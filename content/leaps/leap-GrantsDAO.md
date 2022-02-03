@@ -60,8 +60,8 @@ Setting up a GrantsDAO is another step towards decentralized governance. This wi
 
 4. Election
 
-	The first Grants DAO members are elected by the council or an informal discord vote to address the urgency and are selected for a five-month term. The five-month period ensures that the members are appointed for one whole epoch.
-	Hereafter, the grants DAO members are appointed by the Token vote and selected for a three-month term.
+	The first Grants DAO members are elected by the council or a discord vote to address the urgency and are selected for a five-month term. The five-month period ensures that the members are appointed for one whole epoch.
+	Hereafter, the grants DAO members are appointed by the Token holder voting and are selected for a three-month term.
 
 	The election process for The GrantsDAO will follow the same rules as that of the Lyra Council election (LEAP-15).
 
