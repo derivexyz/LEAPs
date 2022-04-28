@@ -57,8 +57,7 @@ This LEAP will be split into two sections: the first introduces Universal closin
 function. This allows for users to close very ITM/OTM positions. The second section introduces partially collateralized
 shorts, meaning traders shorting options will have to put up substantially less collateral than in V1.
 
-In the following, all parameters are configurable and values specified may change before mainnet deployment subject to
-further testing. A future LEAP will specify the initial values at launch and the justification behind each choice.
+In the following, all parameters are configurable and values specified may change before mainnet deployment subject to further testing. Parameters will be set by the core contributors and these choices will be communicated to the community via the Avalon docs.
 
 ### Rationale
 
