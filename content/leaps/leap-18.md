@@ -190,7 +190,7 @@ The minimum amount of collateral is given by:
 
 where \\(\texttt{ShockVol} = \texttt{ShockVolA} = 2.5\\)  if \\(\texttt{Time_to_Expiry} < T_A = 4\\) weeks, \\(\texttt{ShockVol} = \texttt{ShockVolB} = 1.8\\)  if \\(\texttt{Time_to_Expiry} > T_B = 8\\) weeks and
 \\[
-\texttt{ShockVol} = \texttt{ShockVolA} - \frac{\texttt{ShockVolA} - \texttt{ShockVolB}}{T_{A} - T_{B}} \times (\texttt{Time_to_Expiry} - T_{A})
+\texttt{ShockVol} = \texttt{ShockVolA} - \frac{\texttt{ShockVolA} - \texttt{ShockVolB}}{T_{B} - T_{A}} \times (\texttt{Time_to_Expiry} - T_{A})
 \\]
 when \\(T_{A} \le \texttt{Time_to_Expiry} \le T_{B})\\). \\(\texttt{CallShock}\\) and \\(
 \texttt{PutShock}\\) are static percentage shocks to the current spot price and \\(
