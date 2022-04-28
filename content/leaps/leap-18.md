@@ -291,6 +291,17 @@ be able to transfer their option positions to any address. Consequently, users c
 listing with different collateral amounts and each would be liquidated separately, allowing users to divide risk. This
 also means collateral checks will not have to be performed on transferred short positions.
 
+### Technical Specification: Variance fee
+
+Periods of extreme turbulence in the market should attract higher fees since the AMM is exposed to greater risk and impermanent loss. Such a fee will also further decrease the possibility of the volatility surface being manipulated. For this reason, we propose including a new fee which we call the variance fee.
+
+The variance fee \\(F_{var}\\) will be defined as 
+\\[
+F_{var}=c_{0}\times(v_{0}+v_{1}\times\text{Vega})\times(s_{0}+s_{1}\left|R_{fix}-R\right|)\times(b_{0}+b_{1}\times\left|b^{GWAV}-b^{Spot}\right|)
+\\]
+
+where \\(c_{0},v_{i},s_{i},b_{i},R_{fix}\\) are constants, \\(\text{Vega}\\) is the vega of the trade, \\(R\\) is the skew of the trade and \\(b^{Spot},b^{GWAV}\\) are the spot/GWAV of the baseline volatilities. Essentially, the variance fee will increase for trades that cause the base volatility to deviate significantly from the GWAV.
+
 ### Configurable Values
 | Name | Symbol | Value |
 | ---- | ------ | ----- |
