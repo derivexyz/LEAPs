@@ -2,7 +2,7 @@
 leap: 46
 title: Incentivize LYRA-ETH UniswapV3 pool on Mainnet
 status: Draft
-author: Defiedge
+author: DefiEdge
 created: 2023-01-29
 ---
 
@@ -44,4 +44,6 @@ Users have been exploiting the flexible contracts and simple UI at DefiEdge for 
 ### Configurable Values
 Two strategies with a range of 0.1x to 10x and  0.4x to 2.5x of the spot price.
 
+### Audits
+Here is the link to our audit: https://docs.defiedge.io/Security/audits
 
