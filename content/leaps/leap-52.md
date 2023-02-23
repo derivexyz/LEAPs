@@ -1,5 +1,5 @@
 ---
-LEAP: 52
+leap: 52
 title: SNX Perps V2 hedging and Cash Collateralization on Optimism
 status: Draft
 author: GUNBOATs (@gunboatsss), Mastermojo83, Ksett
