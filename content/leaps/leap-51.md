@@ -101,6 +101,14 @@ Each LEAP must include the following:
 
 In this system, Lyra Governance will take ownership of all treasury assets currently held in the multisig safes on Ethereum, Optimism and Arbitrum. This means that any movement of DAO funds will require a proposal to be passed. Any group can make a proposal to governance for funding. This may include the current core contributors and/or any other third party who wishes to work on the protocol.
 
+#### Decentralised Development ####
+To date, the majority of protocol development has been handled by the current core contributors. As Lyra continues to decentralise, we must make it easy for multiple, independent groups to contribute to the protocol and receive funding from the DAO. Decentralising the development process is crucial, allowing the protocool to improve without reliance on any one group. When done right, it can increase speed of development, improve overall quality and foster innovation. However, prior to governance V2, it was not easy to coordinate this process.
+
+Going forward, it will be easy for any team ("service prodiver") to apply to the DAO for funding directly on-chain. Token holders will be responsible for assessing applications from service providers and setting the project direction, high-level goals and objectives in collaboration with the community Any service provider can work to implement these goals and propose their solution to the DAO. Here we visualise a multi team structure:
+![decentralised-development.svg](assets/decentralised-development.svg)
+
+To ensure protocol devlopment continues smoothly, the current core contributors request an upfront allocation of 1,000,000 USDC from the DAO. With a current burn rate of $2,700,000, this would allow 4-5 months of operation, which is a reasonable amount of time for this new decentralised development structure to take hold.
+
 ### Protocol ###
 
 Lyra Governance V2 makes the protocol significantly more dependable, in part because it increases the time taken for a change to be made. This is desirable when it comes to decisions such as deploying new smart contracts, launching a new market or introducing a new incentive program. However, with respect to protocol performance and safety, responsiveness is critical.
@@ -261,5 +269,8 @@ Test cases are included with the implementation and will be available soon.
 - Vote differential: 15%
 - Quorum: 20%
 
-## Copyright
+## Migration
+- CC funding: 1,000,000 USDC
+
+# Copyright
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
