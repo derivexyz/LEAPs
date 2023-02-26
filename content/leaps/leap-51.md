@@ -46,7 +46,7 @@ The council model offers great speed and flexibility, allowing the project to ev
 
 ## Becoming Dependable
 
-With the recent launch of Newport, we have a protocol that can be deployed on any EVM-compatible network and integrated with any perpetual venue for hedging. This is a foundation on which we can attract legitimate institutions to build on the protocol, provide liquidity and trade. However, they need a governance process that they can depend on. We intend this iteration of Lyra Governance to be a meaningful step on the path of progressive decentralisation.
+With the recent launch of Newport, we have a protocol that can be deployed on any EVM-compatible network and integrated with any perpetual venue for hedging. This is a foundation on which we can attract legitimate institutions to build on the protocol, provide liquidity and trade. However, they need a governance process that they can depend on. We intend this iteration of Lyra Governance to be the final step on our journey of progressive decentralisation.
 
 
 ## Specification
