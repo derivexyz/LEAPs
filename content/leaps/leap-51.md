@@ -22,7 +22,7 @@ In this system, proposals are fully on-chain, binding and auto-execute without r
 
 1. Disband the Lyra Council.
 2. Deploy Lyra Governance V2 - an on-chain system described in section 3.
-3. Transfer ownership of Lyra DAO’s treasuries and protocol contracts to Lyra Governance.
+3. Transfer ownership of Lyra DAO’s treasuries and protocol contracts to Lyra Governance V2.
 
 ## Motivation
 
