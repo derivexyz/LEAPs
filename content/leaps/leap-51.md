@@ -220,6 +220,9 @@ The cross-chain bridge executors extend Lyra Governance on Ethereum to other net
 
 In order to migrate from V1 governance, the following actions need to occur:
 
+#### Extend Current Council ####
+1. Extend the current Lyra Council until the implementation of this LEAP is complete (expected Mid March 2023)
+
 #### Deploy Lyra governance V2 ####
 
 1. Deploy the governance system on Ethereum L1
@@ -270,7 +273,7 @@ Test cases are included with the implementation and will be available soon.
 - Quorum: 20%
 
 ## Migration
-- CC funding: 1,000,000 USDC
+- Contributor funding: 1,000,000 USDC
 
 # Copyright
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
