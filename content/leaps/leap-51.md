@@ -107,7 +107,7 @@ To date, the majority of protocol development has been handled by the current co
 With on-chain governance, it will be easy for any team ("service provider") to apply to the DAO for funding directly. Token holders will be responsible for assessing applications from service providers and setting the project direction, high-level goals and objectives in collaboration with the community. Any service provider can work to implement these goals and propose their solution to the DAO. Here we visualise a multi-team structure: 
 ![decentralised-development.svg](assets/decentralised-development.svg)
 
-To ensure protocol development continues smoothly, the current core contributors request an upfront allocation of 1,000,000 USDC from the DAO. With a current burn rate of ~$2,700,000, this allows 4.5 months of operation, a reasonable amount of time for this new decentralised development structure to take hold. Current annual DAO expenses are as follows:
+To ensure protocol development continues smoothly, we propose that the current core contributors receive an upfront allocation of USDC 1,000,000 USDC from the DAO. With a current burn rate of ~$2,700,000, it will allow development to continue for 4.5 months before they need to seek new funding. This should be sufficient for the decentralised development structure to take hold and for new independent service providers to spin up. The current core contributors' annual expenses breakdown is as follows:
 
 | Section    | Expense          | Percentage |
 |------------|------------------|------------|
