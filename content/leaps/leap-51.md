@@ -117,6 +117,20 @@ To ensure protocol development continues smoothly, we propose that the current c
 | Legal   | 350,000       | 13%        |
 | General   | 200,000       | 7.5%        |
 
+The DAO treasury as of 1 March 2023 is worth approximately $38,195,083.22 and the breakdown of assets is as follows:
+
+| Asset            | Balance            | Price | Value            | Percentage |
+|------------------|----------------------|-------|----------------|------------|
+| LYRA             | 160,000,000    | 0.165 | $26,400,000.00 | 69.12%       |
+| OP                 | 1,811,972.31       | 2.75  | $4,982,923.85  | 13.05%       |
+| USDC             | 3,853,743.07       | 1        | $3,853,743.07  | 10.09%       |
+| VeVELO        | 9,405,508             | 0.18 | $1,692,991.44  | 4.43%         |
+| Opt MMV Liquidity  | 300,000               | 1        | $300,000.00       | 0.79%         |
+| Arb MMV Liquidity  | 300,000               | 1        | $300,000.00       | 0.79%         |
+| GRAIL             | 147.53                   | 1945.8 | $287,063.87        | 0.75%         |
+| WETH/LYRA OP    | 204,826.26            | 1        | $204,826.26        | 0.54%         |
+| WETH/LYRA ARB | 100,000                | 1        | $100,000.00       | 0.26%         |
+| ETH               | 45.28                      | 1624  | $73,534.72          | 0.19%         |
 
 ### Protocol ###
 
