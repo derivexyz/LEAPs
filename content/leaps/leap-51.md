@@ -15,6 +15,13 @@ created: 2023-02-16
     - [Becoming Dependable](#becoming-dependable)
 - [Specification](#specification)
     - [Overview](#overview)
+        - [Token Rights](#token-rights)
+        - [Delegation](#delegation)
+        - [LEAPs](#leap-overview)
+        - [LEAP Structure](#leap-structure)
+        - [LEAP Life Cycle](#leap-life-cycle)
+        - [Treasury](#treasury)
+        - [Protocol](#protocol)
     - [Rationale](#rationale)
     - [Technical Specification](#technical-specification)
     - [Test Cases](#test-cases)
@@ -79,6 +86,7 @@ Lyra Governance V2 allows LYRA holders to directly govern the protocol and treas
 
 In this overview, we provide a non-technical description of the governance framework.
 
+<a id="token-rights"></a>
 ### Token Rights
 
 LYRA token holders can stake their LYRA to receive stkLYRA, which grants governance powers proportionally to their balance. There are initially two powers associated with the stkLYRA token:
@@ -86,14 +94,17 @@ LYRA token holders can stake their LYRA to receive stkLYRA, which grants governa
 1. **Proposal right** - gives access to creating a proposal.
 2. **Voting right** - enables voting on existing proposals.
 
+<a id="delegation"></a>
 ### Delegation
 
 Users can choose to delegate one or both of these rights. This enables Lyra Governance to retain the benefits of a council-based model, where less informed participants can delegate to others, without introducing the implementation risks currently associated with the off-chain council model.
 
+<a id="leap-overview"></a>
 ### Lyra Enhancement Action Proposals (LEAPs)
 
 A LEAP is any proposal that impacts the protocol, treasury or governance framework. It has been adapted from industry standard frameworks, such as [EIP](https://eips.ethereum.org/) and [BIP](https://github.com/bitcoin/bips/blob/master/bip-0001.mediawiki). Examples may include protocol changes (listing new markets and changing parameters), treasury actions (allocating LYRA tokens and remunerating contributors) as well as meta-governance updates (changing the governance process itself).
 
+<a id="leap-structure"></a>
 ### LEAP Structure
 
 Each LEAP must include the following:
@@ -106,6 +117,7 @@ Each LEAP must include the following:
 - Test Cases - Test cases are required for code-related proposals (i.e. non treasury actions).
 - Copyright Waiver - All LEAPs must be in the public domain. See the bottom of this LEAP for an example copyright waiver.
 
+<a id="leap-life-cycle"></a>
 ### LEAP Life Cycle
 
 ![lyra-governance.svg](assets/lyra-governance.svg)
@@ -118,7 +130,7 @@ Each LEAP must include the following:
     1. Approval - If the LEAP is approved, the payload is sent to the relevant timelock for automatic execution.
     2. Rejected - If the LEAP is rejected, there is no further action.
 
-
+<a id="treasury"></a>
 ### Treasury
 
 In this system, Lyra Governance will take ownership of all treasury assets currently held in the multisig safes on Ethereum, Optimism and Arbitrum. This means that any movement of DAO funds will require a proposal to be passed. Any group can make a proposal to governance for funding. This may include the current core contributors and/or any other third party who wishes to work on the protocol.
@@ -156,6 +168,7 @@ The DAO treasury as of 1 March 2023 is worth approximately $36,710,083.22 and th
 | WETH/LYRA ARB    | 100,000          | 1      | $100,000.00     | 0.27%      |
 | ETH              | 45.28            | 1624   | $73,534.72     | 0.20%      |
 
+<a id="protocol"></a>
 ### Protocol
 
 Lyra Governance V2 makes the protocol significantly more dependable, in part because it increases the time taken for a change to be made. This is desirable when it comes to decisions such as deploying new smart contracts, launching a new market or introducing a new incentive program. However, with respect to protocol performance and safety, responsiveness is critical.
