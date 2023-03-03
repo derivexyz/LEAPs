@@ -315,6 +315,15 @@ In order to migrate from V1 governance, the following actions need to occur:
 2. Transfer ownership of Arbitrum Protocol to Arbitrum Executor
 3. Governance Wrapper and Risk Council
 
+
+#### Rewards programs
+There are currently four three rewards programs that require off-chain distribution:
+1. Lyra MMV Liquidity Providers
+3. Lyra Trading fee rebates and short collateral
+4. LYRA token liquidity programs
+
+Transfer 3 months of rewards to the CC multisig so that these programs can continue to run.
+
 <a id="test-cases"></a>
 ## Test Cases
 
