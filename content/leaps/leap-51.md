@@ -151,7 +151,7 @@ With on-chain governance, it will be easy for any team ("service provider") to a
 
 #### Transitional Funding
 
-To ensure protocol development continues smoothly, we propose that the current core contributors receive an upfront allocation of 2,000,000 USDC from the DAO. With a current burn rate of ~$2,700,000, it will allow development to continue for 4.5 months before they need to seek new funding. This should be sufficient for the decentralised development structure to take hold and for new independent service providers to spin up. The current core contributors' annual expenses breakdown is as follows:
+To ensure protocol development continues smoothly, we propose that the current core contributors receive an upfront allocation of 2,000,000 USDC from the DAO. With a current burn rate of ~$2,700,000, it will allow development to continue for 9 months before they need to seek new funding. This should be sufficient for the decentralised development structure to take hold and for new independent service providers to spin up. The current core contributors' annual expenses breakdown is as follows:
 
 | Section    | Expense          | Percentage |
 |------------|------------------|------------|
