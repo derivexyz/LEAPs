@@ -23,7 +23,14 @@ created: 2023-02-16
         - [Treasury](#treasury)
         - [Protocol](#protocol)
     - [Rationale](#rationale)
+        - [On-chain vs off-chain Governance](on-vs-off)
+        - [Frameworks](frameworks)
     - [Technical Specification](#technical-specification)
+        - [Governance Contract](#gov-contract)
+        - [Governance Strategy](#gov-strategy)
+        - [Timelocks](#timelocks)
+        - [Cross-chain](#cross-chain)
+        - [Migration](#migration)
     - [Test Cases](#test-cases)
 - [Configurable Values](#configurable-values)
 - [Copyright](#copyright)
@@ -187,10 +194,12 @@ This idea will be expanded upon in a subsequent LEAP and until implemented, prot
 <a id="rationale"></a>
 ## Rationale
 
+<a id="on-vs-off"></a>
 ### On-chain vs Off-chain Governance
 
 Off-chain governance allows faster decision-making and improves the speed of iteration. However, it relies on third parties to implement proposals, which undermines the dependability of the project. Early-stage projects often choose off-chain governance to begin with and as the project matures, they transition to on-chain governance.
 
+<a id="frameworks"></a>
 ### Frameworks
 
 The two most popular types of on-chain governance frameworks are:
@@ -220,6 +229,7 @@ In the diagram below, we visualise the architecture of these components:
 
 ![lyra-structure.svg](assets/lyra-structure.svg)
 
+<a id="gov-contract"></a>
 ### Governance Contract
 The governance contract is responsible for administering the proposal process. It has five steps:
 
@@ -245,10 +255,12 @@ The validation and execution of the proposal are performed by the time lock exec
 
 If the proposal creator's proposal power decrease and no longer meet the `PROPOSITION_THRESHOLD`, any user can cancel the proposal. In addition as an initial safeguard to the protocol, the **guardian** account, controlled by a community multisig, is able to cancel a proposal before a proposal is executed. A cancelled proposal state is `CANCELED`.
 
+<a id="gov-strategy"></a>
 ### Governance Strategy
 
 The Governance Strategy is responsible for determining how voting power is calculated.
 
+<a id="timelocks"></a>
 ### Timelocks
 
 The timelock contracts are responsible for automatically executing approved proposals.
@@ -272,12 +284,14 @@ The long-time lock executor can change the following parts of the Lyra protocol:
 - Staked LYRA
 - Governance System
 
+<a id="cross-chain"></a>
 ### Cross-chain
 
 The cross-chain bridge executors extend Lyra Governance on Ethereum to other networks.
 
 ![arbitrum-governance-bridge.svg](assets/arbitrum-governance-bridge.svg)
 
+<a id="migration"></a>
 ### Migration
 
 In order to migrate from V1 governance, the following actions need to occur:
