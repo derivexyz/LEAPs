@@ -1,87 +1,111 @@
 ---
 leap: 49
-title: Fee Referral Program
+title: Trading Rewards 2.0
 status: Proposed
-author: dappbeast
+author: dappbeast, Sean Dawson
 created: 2023-2-9
 ---
 
 ## Simple Summary
 
-A fee referral program that rewards traders, apps and integrations that drive volume through the Lyra Protocol.
+Two new tokenomics programs to reward traders and integrations for generating protocol fees.
 
 ## Abstract
 
-This LEAP proposes a fee referral program as an extension of the trading rewards program outlined in [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/) that rewards traders, apps and integrations that drive volume through the Lyra Protocol. It also proposes some simplifications to the current trading rewards program for better trading and staking UX.
+This LEAP proposes two new programs for traders and integrations:
+1. Trading Rewards Program: Traders earn from a pool of rewards proportional to their fees generated over an epoch. Traders also earn rewards for referring other traders.
+2. Integration Rebate Program: A fee rebate program that rebates allowlisted integrations a percentage of fees generated. Integrations are typically public goods such as frontends and protocols.
+
+This LEAP also proposes discontinuing existing trading programs:
+1. [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/): The tiered fee rebate program will be repurposed into the integration rebate program for allowlisted partners only. Individual taders will continue to earn in the new trading rewards program.
+2. [LEAP 30](https://leaps.lyra.finance/leaps/leap-30): The short collateral rewards program will be discontinued. Shorters will continue to earn in the new trading rewards program.  
 
 ## Motivation
 
-While the current trading rewards program has successfully retained existing traders and aligned them with the DAO, it has broadly failed to attract new traders and new sources of volume. A simple referral program that rewards individual referrers, apps such as Kwenta, and integrations such as Polynomial, will help generate more protocol volumes.
-
-Additionally, the current fee tiers [dune query](https://dune.com/queries/1926613) of active traders on Optimism shows high drop off after the 1m stkLYRA fee tier.
+1. Existing programs don't incentivize growth of the protocol's trader base and volumes:
+	- Fee rebates are rewarded in a volatile asset (LYRA or OP tokens) instead of the quote asset, meaning traders cannot lock in a rebate's value until the end of each epoch up to 2 weeks after the initial trade. This is atypical for a fee rebate program which reduces its effectiveness.
+	- Fee rebate tiers reward incumbent LYRA holders and traders, but do not reward new traders for trying the protocol.
+	- The short collateral program is difficult to understand and communicate due to its unpredictable rates impacted by option deltas.
+2. The new trading rewards program introduces new growth functions:
+	- Increases total available rewards, solving the fee rebate program's cold start problem.
+	- A referral incentive rewards traders for referring traders, building strong network effects into the tokenomics.
+3. The repurposed integration rebate program allows integrators to continue to earn a steady stream of rewards:
+	- Incentivises long-term alignment between the Lyra Protocol and its integrations with the LYRA token.
+	- Separates integrations from competition between individual traders, providing a more consistent and predictable flow of rewards. 
 
 ## Specification
 
-### Referral Tiers
+### Trading Rewards
 
-The fee referral program is split into two tiers for referrers:
+Traders earn points for each open position they hold. Traders earn more points when they:
 
-- Tier 1: Extra 5% fee rebate to traders, 5% fee reward to referrer.
-- Tier 2: Extra 10% fee rebate to traders, 10% fee reward to referrer.
+- Pay more fees relative to premiums.
+- Open shorter dated positions. This frees up more liquidity to keep pool utilization low.  
+- Hold a position until expiry. This punishes malicious users who repeatedly open and close positions to generate fees.
+- Refer traders.
 
-All referrers automatically qualify for Tier 1. To qualify for Tier 2:
+#### Base Points
 
-- Referrers must be manually allowlisted by the Council in public forums and tracked in a transparent, open source manner (e.g. via a GitHub repo). This incentivises referrers attracting substantial volumes to be transparent with the community and disincentivises malicious activities like wash trading.
-- Referrers must generate $10,000 in fees over the 2 week epoch. This incentivises successful referrers to maintain Tier 2 status.
+Let:
 
-Additional properties of the referral program:
-- Rebates / rewards are distributed as stkLYRA in 2 week epochs, with reward caps set by Council.
-- Referrers will only be eligible on Newport deployments which include the `referrer` parameter in `OptionMarket`. This means the fee referral program will only be live on Arbitrum initially, but the proposed changes to fee tiers will apply to both Arbitrum and Optimism traders to simplify programs and keep them consistent.
+-   $F$ be the amount of fees in a trade
+-   $P$ be the premium of the trade
+-   $T$ be the time to expiry of the trade
 
-### Fee Tiers
+Define the fee scaler $F_{scale}$ as
 
-Fee tiers have been adjusted to account for the 5%/10% bonus in fee rebates rewarded to traders. Tiers have also been merged or removed based on analysis of existing traders and stkLYRA holders on Optimism [here](https://dune.com/queries/1926613).
+$$ F_{scale}=1+\sqrt{\frac{F}{P}} $$
 
-**Old Program**
+Define the time score $T_{score}$ as
+
+$$ T_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) $$
+
+A user’s total score $S$ is defined as
+
+$$ S=F\times F_{scale}\times T_{score} $$
+
+A user receives all $S$ points if they hold the position to expiry. They are paid out at a rate of
+
+$$ Y=\frac{X}{T\text{ in hours}} $$
+
+points per hour.
+
+Whenever a user conducts a trade on the same listing, we have two quantities: $Y_{orig}$ (the hourly rate they are currently receiving) and $Y_{new}$ (the number of points they are receiving for this new trade). The total number of points the user will receive after the trade $Y_{\text{post trade}}$ is the time weighted average of the two rates based on $Y_{orig}$ time open and $Y_{new}$ time to expiry.
+
+Suppose all $N$ users have scores $(Y_1,Y_2,\dots, Y_N)$. A user will be ranked according to their log score, i.e. $\ln(Y_i)$.
+
+#### Referrals
+
+Traders will earn additional points for referring other traders:
+
+- A referrer earns 10% of the points generated by their referred traders.
+- A referred trader earns an extra 10% points.
+
+#### Implementation
+
+- Points will be calculated in an off-chain script and mapped to rewards after each epoch.
+- Referrals will be tracked off-chain via [Spindl](https://www.spindl.xyz/), a third party attribution tool. Referrals will only be tracked via frontends from allowlisted partners who integrate with Spindl. Attribution will be simple address mappings and no PII will be collected. Referral rewards will be distributed in Spindl's distributor contract after each epoch.
+- Reward quantities and the referral attribution window will be set by Council pre [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) and by off-chain Snapshot vote post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/).
+
+### Integration Rebates
+
+Integrations will earn a fee rebate tiered by their stkLYRA balance, with the same functionality and implementation of [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/). The number of tiers and rebate size will be reduced to establish a more sustainable program:
+
 | stkLYRA Balance | Rebate |
 | ------------- | ------------- |
-| 0 | 5% | 
-| 1,000 | 20% | 
-| 5,000 | 30% | 
-| 10,000 | 35% | 
-| 20,000 | 40% |
-| 50,000 | 45% | 
-| 100,000 | 47.5% | 
-| 250,000 | 50% | 
-| 500,000 | 52.5% | 
-| 1,000,000 | 55% | 
-| 2,000,000 | 57.5% | 
-| 3,000,000 | 60% |
+| 10,000 | 10% |
+| 50,000 | 20% | 
+| 250,000 | 30% | 
+| 1,000,000 | 40% | 
 
-**New Program (No Referral Bonus\*)**
-| stkLYRA Balance | Rebate |
-| ------------- | ------------- |
-| 1,000 | 10% | 
-| 5,000 | 20% | 
-| 10,000 | 30% | 
-| 50,000 | 40% | 
-| 250,000 | 50% | 
-| 1,000,000 | 60% | 
+Integrations must be allowlisted to earn rebates. The allowlist process from [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) will be adopted, allowing integrations to delegate stkLYRA and payout addresses. Post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) the Grants Council will be responsible for approving new integrations.
 
-\* With a Tier 2 Referrer (which should be the default for most traders, see "Examples" below), all tiers receive an additional 10% rebate, increasing the maximum rebate to 70%.
+The integration allowlist will be maintained publicly in this [spreadsheet](https://docs.google.com/spreadsheets/d/1lerDJEghSfdutnvqzyLmY2QrLN7T2lBa2sj-eY2DDnE/edit#gid=0) and will be initialized with the existing [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) allowlist.
 
-### Examples
+#### Implementation
 
-The fee referral program can be utilized by developers in many ways:
-
-- An application such as Kwenta can host their own interface to the Lyra Protocol and hardcode their referrer address in the frontend. They will receive rewards proportional to how many traders use their interface.
-	- An application following this model could run a "nested" referral program for their traders. E.g. Kwenta DAO could distribute a portion of their referral rewards to traders by running their own referral program on top of the Lyra DAO's.
-- An integration such as Polynomial can hardcode their referrer address into on-chain calls to Newport contracts. They will receive rewards proportional to volume generated by their vaults.
-- An agnostic application could allow traders to input their own referral codes, rewarding individual referrers directly.
-
-### Implementation
-
-Referrals will be tracked via the `referrer` parameter in `OptionMarket` trade functions. The volume generated by each referral address will be aggregated in an off-chain trading rewards script and distributed in 2 week epochs. Rewards will be claimable by the referrer via the distributor contract used for other epoch rewards.
+- Integration fees will be tracked on-chain via the `referrer` parameter in `OptionMarket` trade functions.
+- Fees generated by each referral address will be calculated in an off-chain script and mapped to rewards after each epoch.
 
 ## Copyright
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
