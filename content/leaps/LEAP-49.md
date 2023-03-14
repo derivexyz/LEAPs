@@ -48,31 +48,31 @@ Traders earn points for each open position they hold. Traders earn more points w
 
 Let:
 
--   $F$ be the amount of fees in a trade
--   $P$ be the premium of the trade
--   $T$ be the time to expiry of the trade
+-   \$F\$ be the amount of fees in a trade
+-   \$P\$ be the premium of the trade
+-   \$T\$ be the time to expiry of the trade
 
 Define the fee scaler $F_{scale}$ as
 
-$$ F_{scale}=1+\sqrt{\frac{F}{P}} $$
+\$$ F_{scale}=1+\sqrt{\frac{F}{P}} \$$
 
 Define the time score $T_{score}$ as
 
-$$ T_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) $$
+\$$ T_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) \$$
 
 A user’s total score $S$ is defined as
 
-$$ S=F\times F_{scale}\times T_{score} $$
+\$$ S=F\times F_{scale}\times T_{score} \$$
 
 A user receives all $S$ points if they hold the position to expiry. They are paid out at a rate of
 
-$$ Y=\frac{X}{T\text{ in hours}} $$
+\$$ Y=\frac{X}{T\text{ in hours}} \$$
 
 points per hour.
 
-Whenever a user conducts a trade on the same listing, we have two quantities: $Y_{orig}$ (the hourly rate they are currently receiving) and $Y_{new}$ (the number of points they are receiving for this new trade). The total number of points the user will receive after the trade $Y_{\text{post trade}}$ is the time weighted average of the two rates based on $Y_{orig}$ time open and $Y_{new}$ time to expiry.
+Whenever a user updates their position, the total total number of points the user receives is the time weighted average of the two rates based on previous position's time open and the new position's time to expiry.
 
-Suppose all $N$ users have scores $(Y_1,Y_2,\dots, Y_N)$. A user will be ranked according to their log score, i.e. $\ln(Y_i)$.
+Suppose all \$N\$ users have scores \$(Y_1,Y_2,\dots, Y_N)\$. A user will be ranked according to their log score, i.e. \$\ln(Y_i)\$.
 
 #### Referrals
 
@@ -93,10 +93,9 @@ Integrations will earn a fee rebate tiered by their stkLYRA balance, with the sa
 
 | stkLYRA Balance | Rebate |
 | ------------- | ------------- |
-| 10,000 | 10% |
-| 50,000 | 20% | 
-| 250,000 | 30% | 
-| 1,000,000 | 40% | 
+| 500,000 | 35% |
+| 1,000,000 | 50% | 
+| 10,000,000 | 60% | 
 
 Integrations must be allowlisted to earn rebates. The allowlist process from [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) will be adopted, allowing integrations to delegate stkLYRA and payout addresses. Post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) the Grants Council will be responsible for approving new integrations.
 
