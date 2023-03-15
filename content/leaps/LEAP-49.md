@@ -13,25 +13,27 @@ Two new tokenomics programs to reward traders and integrations for generating pr
 ## Abstract
 
 This LEAP proposes two new programs for traders and integrations:
+
 1. Trading Rewards Program: Traders earn from a pool of rewards proportional to their fees generated over an epoch. Traders also earn rewards for referring other traders.
 2. Integration Rebate Program: A fee rebate program that rebates allowlisted integrations a percentage of fees generated. Integrations are typically public goods such as frontends and protocols.
 
 This LEAP also proposes discontinuing existing trading programs:
+
 1. [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/): The tiered fee rebate program will be repurposed into the integration rebate program for allowlisted partners only. Individual taders will continue to earn in the new trading rewards program.
-2. [LEAP 30](https://leaps.lyra.finance/leaps/leap-30): The short collateral rewards program will be discontinued. Shorters will continue to earn in the new trading rewards program.  
+2. [LEAP 30](https://leaps.lyra.finance/leaps/leap-30): The short collateral rewards program will be discontinued. Shorters will continue to earn in the new trading rewards program.
 
 ## Motivation
 
 1. Existing programs don't incentivize growth of the protocol's trader base and volumes:
-	- Fee rebates are rewarded in a volatile asset (LYRA or OP tokens) instead of the quote asset, meaning traders cannot lock in a rebate's value until the end of each epoch up to 2 weeks after the initial trade. This is atypical for a fee rebate program which reduces its effectiveness.
-	- Fee rebate tiers reward incumbent LYRA holders and traders, but do not reward new traders for trying the protocol.
-	- The short collateral program is difficult to understand and communicate due to its unpredictable rates impacted by option deltas.
+   - Fee rebates are rewarded in a volatile asset (LYRA or OP tokens) instead of the quote asset, meaning traders cannot lock in a rebate's value until the end of each epoch up to 2 weeks after the initial trade. This is atypical for a fee rebate program which reduces its effectiveness.
+   - Fee rebate tiers reward incumbent LYRA holders and traders, but do not reward new traders for trying the protocol.
+   - The short collateral program is difficult to understand and communicate due to its unpredictable rates impacted by option deltas.
 2. The new trading rewards program introduces new growth functions:
-	- Increases total available rewards, solving the fee rebate program's cold start problem.
-	- A referral incentive rewards traders for referring traders, building strong network effects into the tokenomics.
+   - Increases total available rewards, solving the fee rebate program's cold start problem.
+   - A referral incentive rewards traders for referring traders, building strong network effects into the tokenomics.
 3. The repurposed integration rebate program allows integrators to continue to earn a steady stream of rewards:
-	- Incentivises long-term alignment between the Lyra Protocol and its integrations with the LYRA token.
-	- Separates integrations from competition between individual traders, providing a more consistent and predictable flow of rewards. 
+   - Incentivises long-term alignment between the Lyra Protocol and its integrations with the LYRA token.
+   - Separates integrations from competition between individual traders, providing a more consistent and predictable flow of rewards.
 
 ## Specification
 
@@ -40,7 +42,7 @@ This LEAP also proposes discontinuing existing trading programs:
 Traders earn points for each open position they hold. Traders earn more points when they:
 
 - Pay more fees relative to premiums.
-- Open shorter dated positions. This frees up more liquidity to keep pool utilization low.  
+- Open shorter dated positions. This frees up more liquidity to keep pool utilization low.
 - Hold a position until expiry. This punishes malicious users who repeatedly open and close positions to generate fees.
 - Refer traders.
 
@@ -48,25 +50,25 @@ Traders earn points for each open position they hold. Traders earn more points w
 
 Let:
 
--   \$F\$ be the amount of fees in a trade
--   \$P\$ be the premium of the trade
--   \$T\$ be the time to expiry of the trade
+- \$F\$ be the amount of fees in a trade
+- \$P\$ be the premium of the trade
+- \$T\$ be the time to expiry of the trade
 
 Define the fee scaler $F_{scale}$ as
 
-\$$ F_{scale}=1+\sqrt{\frac{F}{P}} \$$
+\\ F\_{scale}=1+\sqrt{\frac{F}{P}} \\
 
 Define the time score $T_{score}$ as
 
-\$$ T_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) \$$
+\\ T\_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) \\
 
 A user’s total score $S$ is defined as
 
-\$$ S=F\times F_{scale}\times T_{score} \$$
+\\ S=F\times F*{scale}\times T*{score} \\
 
 A user receives all $S$ points if they hold the position to expiry. They are paid out at a rate of
 
-\$$ Y=\frac{X}{T\text{ in hours}} \$$
+\\ Y=\frac{X}{T\text{ in hours}} \\
 
 points per hour.
 
@@ -92,10 +94,10 @@ Traders will earn additional points for referring other traders:
 Integrations will earn a fee rebate tiered by their stkLYRA balance, with the same functionality and implementation of [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/). The number of tiers and rebate size will be reduced to establish a more sustainable program:
 
 | stkLYRA Balance | Rebate |
-| ------------- | ------------- |
-| 500,000 | 35% |
-| 1,000,000 | 50% | 
-| 10,000,000 | 60% | 
+| --------------- | ------ |
+| 500,000         | 35%    |
+| 1,000,000       | 50%    |
+| 10,000,000      | 60%    |
 
 Integrations must be allowlisted to earn rebates. The allowlist process from [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) will be adopted, allowing integrations to delegate stkLYRA and payout addresses. Post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) the Grants Council will be responsible for approving new integrations.
 
@@ -107,4 +109,5 @@ The integration allowlist will be maintained publicly in this [spreadsheet](http
 - Fees generated by each referral address will be calculated in an off-chain script and mapped to rewards after each epoch.
 
 ## Copyright
+
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
