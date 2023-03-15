@@ -56,19 +56,19 @@ Let:
 
 Define the fee scaler $F_{scale}$ as
 
-\\ F\_{scale}=1+\sqrt{\frac{F}{P}} \\
+\( F\_{scale}=1+\sqrt{\frac{F}{P}} \)
 
 Define the time score $T_{score}$ as
 
-\\ T\_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) \\
+\( T\_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) \)
 
 A user’s total score $S$ is defined as
 
-\\ S=F\times F*{scale}\times T*{score} \\
+\( S=F\times F*{scale}\times T*{score} \)
 
 A user receives all $S$ points if they hold the position to expiry. They are paid out at a rate of
 
-\\ Y=\frac{X}{T\text{ in hours}} \\
+\( Y=\frac{X}{T\text{ in hours}} \)
 
 points per hour.
 
