@@ -8,105 +8,114 @@ created: 2023-2-9
 
 ## Simple Summary
 
-Two new tokenomics programs to reward traders and integrations for generating protocol fees.
+New reward programs for trading and referrals.
 
 ## Abstract
 
-This LEAP proposes two new programs for traders and integrations:
+This LEAP proposes two new reward programs for trading and referrers:
 
-1. Trading Rewards Program: Traders earn from a pool of rewards proportional to their fees generated over an epoch. Traders also earn rewards for referring other traders.
-2. Integration Rebate Program: A fee rebate program that rebates allowlisted integrations a percentage of fees generated. Integrations are typically public goods such as frontends and protocols.
+1. Trading Pools: Traders earn from a pool of rewards each epoch proportional to their fees generated.
+2. Referrals: Integrations and affiliates earn a share of fees generated as rewards. Verified partners who stake LYRA earn more rewards.
 
-This LEAP also proposes discontinuing existing trading programs:
+This LEAP also proposes discontinuing existing trading reward programs:
 
-1. [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/): The tiered fee rebate program will be repurposed into the integration rebate program for allowlisted partners only. Individual taders will continue to earn in the new trading rewards program.
-2. [LEAP 30](https://leaps.lyra.finance/leaps/leap-30): The short collateral rewards program will be discontinued. Shorters will continue to earn in the new trading rewards program.
+1. [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/): The tiered fee rebate program will be replaced with trading pools.
+2. [LEAP 30](https://leaps.lyra.finance/leaps/leap-30): The short collateral rewards program will be discontinued.
 
 ## Motivation
 
-1. Existing programs don't incentivize growth of the protocol's trader base and volumes:
-   - Fee rebates are rewarded in a volatile asset (LYRA or OP tokens) instead of the quote asset, meaning traders cannot lock in a rebate's value until the end of each epoch up to 2 weeks after the initial trade. This is atypical for a fee rebate program which reduces its effectiveness.
-   - Fee rebate tiers reward incumbent LYRA holders and traders, but do not reward new traders for trying the protocol.
+1. Existing trading programs don't incentivize protocol growth:
+   - Fee rebates are rewarded in volatile tokens (LYRA and OP) instead of the quote asset (USDC and sUSD). This means traders cannot lock in a rebate's value until the end of an epoch up to 2 weeks after a trade. Additionally, stkLYRA tiers reward incumbent traders but introduce a high barrier to entry for new traders.
    - The short collateral program is difficult to understand and communicate due to its unpredictable rates impacted by option deltas.
-2. The new trading rewards program introduces new growth functions:
+2. The new trading pools program generates more trading activity:
    - Increases total available rewards, solving the fee rebate program's cold start problem.
-   - A referral incentive rewards traders for referring traders, building strong network effects into the tokenomics.
-3. The repurposed integration rebate program allows integrators to continue to earn a steady stream of rewards:
-   - Incentivises long-term alignment between the Lyra Protocol and its integrations with the LYRA token.
-   - Separates integrations from competition between individual traders, providing a more consistent and predictable flow of rewards.
+   - Sybil resistant with a unique rewards formula based on open interest.
+3. The new referral program onboards new traders and steady sources of volume from integrators:
+   - Referrers earn a steady stream of rewards for generating protocol fees, separate to the trading pools competition between individual traders.
+   - Verified partners who stake LYRA and establish long-term alignment with the DAO unlock higher reward tiers.
 
 ## Specification
 
-### Trading Rewards
+### Trading Pools
 
 Traders earn points for each open position they hold. Traders earn more points when they:
 
 - Pay more fees relative to premiums.
 - Open shorter dated positions. This frees up more liquidity to keep pool utilization low.
 - Hold a position until expiry. This punishes malicious users who repeatedly open and close positions to generate fees.
-- Refer traders.
 
-#### Base Points
+**Trading Score**
 
 Let:
 
-- \$F\$ be the amount of fees in a trade
-- \$P\$ be the premium of the trade
-- \$T\$ be the time to expiry of the trade
+- `F` be the amount of fees in a trade
+- `P` be the premium of the trade
+- `T` be the time to expiry of the trade
+- `L` be the epoch length
 
-Define the fee scaler $F_{scale}$ as
+Define the fee scaler `Fs` as
 
-\( F\_{scale}=1+\sqrt{\frac{F}{P}} \)
+`Fs = 1 + sqrt(F/P)`
 
-Define the time score $T_{score}$ as
+Define the time score `Ts` as
 
-\( T\_{score}=\max(1-\frac{T\text{ days}}{\text{ epoch Length}}, 0.2) \)
+`Ts = max(1 - T/L, 0.2)`
 
-A user’s total score $S$ is defined as
+A trader's position score `S` if they hold the position until expiry is defined as
 
-\( S=F\times F*{scale}\times T*{score} \)
+`S = F * Fs * Ts`
 
-A user receives all $S$ points if they hold the position to expiry. They are paid out at a rate of
+When a position's size is adjusted or closed, the position score is the time weighted average of the rate before and after based on contract size. For example, if a position with 10 contracts expiring in 2 weeks has score `S1`. The position size is reduced to 5 contracts after 1 week and held until expiry. The new score `S2` is
 
-\( Y=\frac{X}{T\text{ in hours}} \)
+`S2 = 10/10 * 1/2 * S1 + 5/10 * 1/2 * S1`
 
-points per hour.
+A trader's score is the log score of the sum of their position scores for an epoch. If a position is held across multiple epochs, the score is split between epochs.
 
-Whenever a user updates their position, the total total number of points the user receives is the time weighted average of the two rates based on previous position's time open and the new position's time to expiry.
+**Multipliers**
 
-Suppose all \$N\$ users have scores \$(Y_1,Y_2,\dots, Y_N)\$. A user will be ranked according to their log score, i.e. \$\ln(Y_i)\$.
+A trader's score can be multiplied when they:
 
-#### Referrals
+- Stake LYRA
+- Hold a top trader score over a 24 hour period
+- Get referred by another trader
 
-Traders will earn additional points for referring other traders:
+The stkLYRA condition requires a user to have a stkLYRA balance at the end of each 24 hour window. Only a trader's points over that 24 hour period are multiplied.
 
-- A referrer earns 10% of the points generated by their referred traders.
-- A referred trader earns an extra 10% points.
+The top trader condition applies over a 24 hour window starting 00:00 UTC every day. Only a trader's points over that 24 hour period are multiplied.
 
-#### Implementation
+The referred condition is applied on a per trade basis based on a referrer address being populated in the `OptionMarket.Trade` event's `referrer` field.
 
-- Points will be calculated in an off-chain script and mapped to rewards after each epoch.
-- Referrals will be tracked off-chain via [Spindl](https://www.spindl.xyz/), a third party attribution tool. Referrals will only be tracked via frontends from allowlisted partners who integrate with Spindl. Attribution will be simple address mappings and no PII will be collected. Referral rewards will be distributed in Spindl's distributor contract after each epoch.
-- Reward quantities and the referral attribution window will be set by Council pre [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) and by off-chain Snapshot vote post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/).
+|Tier | Conditions | Multiplier |
+|---| --------------- | ------ |
+|I| 1k stkLYRA or top 50 or referred | 1.2x |
+|II| 10k stkLYRA or top 25 | 1.5x |
+|III| 50k stkLYRA or top 10 | 2x |
+|IV| 250k stkLYRA or top 3 | 2.5x |
 
-### Integration Rebates
+### Referrals
 
-Integrations will earn a fee rebate tiered by their stkLYRA balance, with the same functionality and implementation of [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/). The number of tiers and rebate size will be reduced to establish a more sustainable program:
+Accounts that refer trades will earn a share of their referred trading fees as rewards. The fee rewards will be tiered by stkLYRA balance, with the same functionality and implementation of [LEAP 34](https://leaps.lyra.finance/leaps/leap-34/).
 
-| stkLYRA Balance | Rebate |
-| --------------- | ------ |
-| 500,000         | 35%    |
-| 1,000,000       | 50%    |
-| 10,000,000      | 60%    |
+Accounts must verify themselves to access higher rebate tiers. The verification process from [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) will be adopted, allowing integrations to delegate stkLYRA and payout addresses. Post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) the Grants Council will be responsible for approving new integrations. Additionally, the Grants Council will be able to denylist malicious addresses that are gaming the referral program.
 
-Integrations must be allowlisted to earn rebates. The allowlist process from [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) will be adopted, allowing integrations to delegate stkLYRA and payout addresses. Post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) the Grants Council will be responsible for approving new integrations.
+|Tier | Conditions | Fee Rewards |
+|---| --------------- | ------ |
+|I| 0 stkLYRA, unverified | 10% |
+|II| 500k stkLYRA, verified | 35% |
+|III| 1m stkLYRA, verified | 50% |
+|IV| 5m stkLYRA, verified | 60% |
 
-The integration allowlist will be maintained publicly in this [spreadsheet](https://docs.google.com/spreadsheets/d/1lerDJEghSfdutnvqzyLmY2QrLN7T2lBa2sj-eY2DDnE/edit#gid=0) and will be initialized with the existing [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) allowlist.
+The referral allowlist and denylist will be maintained publicly in this [spreadsheet](https://docs.google.com/spreadsheets/d/1lerDJEghSfdutnvqzyLmY2QrLN7T2lBa2sj-eY2DDnE/edit#gid=0) and will be initialized with the existing [LEAP 39](https://leaps.lyra.finance/leaps/leap-39) allowlist.
 
-#### Implementation
+### Implementation
 
-- Integration fees will be tracked on-chain via the `referrer` parameter in `OptionMarket` trade functions.
-- Fees generated by each referral address will be calculated in an off-chain script and mapped to rewards after each epoch.
+- Trading scores will be calculated in an off-chain script.
+- Referrals will be tracked on-chain via the `OptionMarket.Trade` event's `referrer` field. Population of a trade's `referrer` field is up to the integrator.
+	- Referrals will only be available on Newport versions of the protocol since previous versions do not support the `referrer` field.
+	- Interfaces may track affiliation off-chain using tools like [Spindl](https://www.spindl.xyz/) that provide vanity links with short referral codes and measure more precise attribution windows for trader to trader referrals. They could then populate the `referrer` parameter on-chain as a trade is made.
+	- On-chain integrations such as dHedge, Polynomial and Brahma may choose to hardcode a `referrer` parameter to their DAO's address, then distribute rewards to LPs periodically.
+- Reward quantities, tiers and their conditions for trading pools and referrals will be set by Council pre [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) and by off-chain Snapshot vote post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/).
+- Rewards for both programs will be distributed after each epoch.
 
 ## Copyright
 
