@@ -2,7 +2,7 @@
 leap: 49
 title: Trading Rewards 2.0
 status: Proposed
-author: dappbeast, Sean Dawson
+author: dappbeast, Sean Dawson, Dillon Lin
 created: 2023-2-9
 ---
 
@@ -53,7 +53,7 @@ Let:
 - `T` be the time to expiry of the trade
 - `L` be the epoch length
 
-Define the fee scaler `Fs` as
+Define the fee score `Fs` as
 
 `Fs = 1 + sqrt(F/P)`
 
@@ -61,15 +61,19 @@ Define the time score `Ts` as
 
 `Ts = max(1 - T/L, 0.2)`
 
-A trader's position score `S` if they hold the position until expiry is defined as
+Define a position score `Ps` if they hold the position until expiry as
 
-`S = F * Fs * Ts`
+`Ps = F * Fs * Ts`
 
-When a position's size is adjusted or closed, the position score is the time weighted average of the rate before and after based on contract size. For example, if a position with 10 contracts expiring in 2 weeks has score `S1`. The position size is reduced to 5 contracts after 1 week and held until expiry. The new score `S2` is
+When a position's size is adjusted or closed, the position score is the time weighted average of the rate before and after based on contract size.
 
-`S2 = 10/10 * 1/2 * S1 + 5/10 * 1/2 * S1`
+For example, if a position with 10 contracts expiring in 2 weeks has score `Ps1`. The position size is reduced to 5 contracts after 1 week and held until expiry. The new score `Ps2` is
 
-A trader's score is the log score of the sum of their position scores for an epoch. If a position is held across multiple epochs, the score is split between epochs.
+`Ps2 = 10/10 * 1/2 * Ps1 + 5/10 * 1/2 * Ps1`
+
+A trader's total score is the sum of the square root of their daily scores for each position held over an epoch. This creates a flatter distribution and balances daily multipliers (see next section).
+
+If a position is held across multiple epochs, the score carries across epochs.
 
 **Multipliers**
 
@@ -116,6 +120,14 @@ The referral allowlist and denylist will be maintained publicly in this [spreads
 	- On-chain integrations such as dHedge, Polynomial and Brahma may choose to hardcode a `referrer` parameter to their DAO's address, then distribute rewards to LPs periodically.
 - Reward quantities, tiers and their conditions for trading pools and referrals will be set by Council pre [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) and by off-chain Snapshot vote post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/).
 - Rewards for both programs will be distributed after each epoch.
+
+### Program Adjustments
+
+For posterity, this LEAP proposes three amendments for all epoch-based reward programs, covering trading rewards, referral rewards and vault rewards programs.
+
+1. Thresholds: Each program has a threshold for minimum distributions. For example, if a threshold of 1 LYRA is set for the trading rewards program, traders who earn less than 1 LYRA will be ignored in the distribution. This makes distributions more gas efficient by ignoring sybil accounts. 
+2. Distribution Buffer: Rewards can be distributed up to 1 week after an epoch ends. This gives the DAO time to identify and resolve issues in distributions.
+3. Updates: Post [LEAP 51](https://leaps.lyra.finance/leaps/leap-51/) changes to reward programs must be made via Snapshot vote using the off-chain signaling process. For proposals that update or introduce a new program, the full LEAP structure should be used. For proposals that adjust a program's configuration, for example increasing a rewards cap or changing a program's reward token, only the new configuration needs to be included in the proposal.
 
 ## Copyright
 
