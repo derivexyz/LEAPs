@@ -1,7 +1,7 @@
 ---
 leap: 45
 title: Coinstore to Fork and Self-Host Lyra
-status: Draft
+status: Rejected
 author: beankirk (@beankirk)
 created: 2023-01-21
 ---
