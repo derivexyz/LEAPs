@@ -1,7 +1,7 @@
 ---
 leap: 48
 title: Messari Protocol Services
-status: Draft
+status: Rejected
 author: Renna Ba (@rennaba)
 created: 2023-02-08
 ---
