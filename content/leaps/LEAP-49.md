@@ -91,10 +91,10 @@ The referred condition is applied on a per trade basis based on a referrer addre
 
 |Tier | Conditions | Multiplier |
 |---| --------------- | ------ |
-|I| 1k stkLYRA or top 50 or referred | 1.2x |
-|II| 10k stkLYRA or top 25 | 1.5x |
-|III| 50k stkLYRA or top 10 | 2x |
-|IV| 250k stkLYRA or top 3 | 2.5x |
+|I| 1k stkLYRA or top 100 or referred | 1.2x |
+|II| 10k stkLYRA or top 50 | 1.5x |
+|III| 50k stkLYRA or top 25 | 2x |
+|IV| 250k stkLYRA or top 10 | 2.5x |
 
 ### Referrals
 
