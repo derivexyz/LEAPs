@@ -1,7 +1,7 @@
 ---
 leap: 20
 title: xLYRA Tokenomics
-status: Draft
+status: Rejected
 author: Nick Forster (@nickf24), Sean Dawson (@SeanDaws), Domrom (@DominicRomanowski), Lochcrest (@Lochcrest), Cameron (@Beefmaster)
 created: 2022-03-01
 ---
