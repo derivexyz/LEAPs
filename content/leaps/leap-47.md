@@ -1,7 +1,7 @@
 ---
 leap: 47
 title: Incentivize LYRA-ETH UniswapV3 pool on Mainnet
-status: Draft
+status: Rejected
 author: DefiEdge
 created: 2023-01-29
 ---
