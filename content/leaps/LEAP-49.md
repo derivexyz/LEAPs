@@ -1,7 +1,7 @@
 ---
 leap: 49
 title: Trading Rewards 2.0
-status: Proposed
+status: Approved
 author: dappbeast, Sean Dawson, Dillon Lin
 created: 2023-2-9
 ---
