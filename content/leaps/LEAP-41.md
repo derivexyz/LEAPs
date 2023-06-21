@@ -1,7 +1,7 @@
 ---
 leap: 41
 title: Reduce GrantsDAO Incentives From Next Epoch
-status: Approved
+status: Implemented
 author: nf
 created: 2022-12-14
 ---
