@@ -1,7 +1,7 @@
 ---
-leap: 50
+leap: 49
 title: Launch WBTC-USDC on Arbitrum
-status: Approved
+status: Implemented
 author: dappbeast
 created: 2023-2-9
 ---
