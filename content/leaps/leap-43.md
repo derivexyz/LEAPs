@@ -1,7 +1,7 @@
 ---
 leap: 43
 title: Kwenta Hosting Pilot
-status: Approved
+status: Implemented
 author: Leifu Chen (@LeifuChen), Burt Rock (@BurtRock)
 created: 2022-12-30
 ---
