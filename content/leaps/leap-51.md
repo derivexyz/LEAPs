@@ -1,7 +1,7 @@
 ---
 leap: 51
 title: Lyra Governance V2
-status: Approved
+status: Implemented
 author: mjs (@mjs-12)
 created: 2023-02-16
 ---
